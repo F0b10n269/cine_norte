@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180" role="img" aria-labelledby="title desc">
+  <title id="title">Cine Norte</title>
+  <desc id="desc">Icono de una pantalla de cine con estrellas</desc>
+  <rect width="180" height="180" rx="24" fill="#1f5361"/>
+  <circle cx="90" cy="72" r="42" fill="#6fc3bd"/>
+  <path d="M58 72h64M90 42v60" stroke="#18232b" stroke-width="7"/>
+  <path d="M45 124h90M58 141h64" stroke="#e77b5d" stroke-width="9" stroke-linecap="round"/>
+  <circle cx="70" cy="72" r="7" fill="#fffdf9"/>
+  <circle cx="110" cy="72" r="7" fill="#fffdf9"/>
+</svg>

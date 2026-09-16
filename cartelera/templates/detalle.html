@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block titulo %}{{ pelicula.titulo }} | Cine Norte{% endblock %}
+
+{% block contenido %}
+<article class="detalle">
+    <div class="detalle-cabecera">
+        <div>
+            <p class="etiqueta">{{ pelicula.etiqueta|upper }}</p>
+            <h2>{{ pelicula.titulo }}</h2>
+            <p class="genero">{{ pelicula.genero|lower|capfirst }}</p>
+        </div>
+        <span class="sello">{{ pelicula.apta_todo_publico|yesno:'TE,18+' }}</span>
+    </div>
+
+    <div class="detalle-grid">
+        <div>
+            <h3>Sinopsis</h3>
+            <p class="detalle-sinopsis">{{ pelicula.sinopsis }}</p>
+        </div>
+        <dl class="ficha">
+            <div>
+                <dt>Duracion</dt>
+                <dd>{{ pelicula.duracion }} minutos</dd>
+            </div>
+            <div>
+                <dt>Precio general</dt>
+                <dd>${{ pelicula.precio }}</dd>
+            </div>
+            <div>
+                <dt>Precio nocturno</dt>
+                <dd>${{ pelicula.precio_nocturno }}</dd>
+            </div>
+            <div>
+                <dt>Clasificacion</dt>
+                <dd>{{ pelicula.apta_todo_publico|yesno:'Todo publico,Mayores de edad' }}</dd>
+            </div>
+        </dl>
+    </div>
+
+    <a class="enlace-regreso" href="{% url 'app:inicio' %}">← Volver a la portada</a>
+</article>
+{% endblock %}

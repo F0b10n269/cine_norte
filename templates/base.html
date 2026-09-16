@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>{% block titulo %}Cine Norte{% endblock %}</title>
+	<link rel="stylesheet" href="{% static 'css/estilos.css' %}">
+</head>
+<body>
+	<header class="encabezado">
+		<div class="marca">
+			<img src="{% static 'img/cine-norte.svg' %}" alt="Sala de cine">
+			<div>
+				<p class="sobretexto">Cartelera local</p>
+				<h1>Cine Norte</h1>
+			</div>
+		</div>
+		<nav>
+			<a class="enlace-destacado" href="{% url 'app:inicio' %}">Ver cartelera</a>
+		</nav>
+	</header>
+
+	<main class="contenedor">
+		{% block contenido %}{% endblock %}
+	</main>
+
+	<footer class="pie">
+		<p>&copy; 2026 Cine Norte · Historias para compartir</p>
+	</footer>
+</body>
+</html>

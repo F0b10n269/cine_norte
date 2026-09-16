@@ -1,4 +1,5 @@
-from django.http import Http404, HttpResponse
+from django.http import Http404
+from django.shortcuts import render
 
 # Create your views here.
 PELICULAS = [
@@ -30,24 +31,37 @@ PELICULAS = [
 
 
 def lista_peliculas(request):
-    peliculas = ''.join(
-        f'<li><a href="/peliculas/{pelicula["id"]}/">'
-        f'{pelicula["titulo"]}</a> - {pelicula["genero"]}</li>'
-        for pelicula in PELICULAS
-    )
-    return HttpResponse(f'<h1>Cartelera</h1><ul>{peliculas}</ul>')
+    duracion_total = 0
+    cantidad_estrenos = 0
+    for pelicula in PELICULAS:
+        duracion_total += pelicula['duracion']
+        if pelicula['estreno']:
+            cantidad_estrenos += 1
+    duracion_promedio = round(duracion_total / len(PELICULAS))
+    contexto = {
+        'peliculas': PELICULAS,
+        'duracion_promedio': duracion_promedio,
+        'cantidad_estrenos': cantidad_estrenos,
+    }
+    return render(request, 'inicio.html', contexto)
 
 
-def detalle_pelicula(request, pelicula_id):
-    pelicula = next((item for item in PELICULAS if item['id'] == pelicula_id), None)
+def detalle_pelicula(request, id):
+    pelicula = None
+    for item in PELICULAS:
+        if item['id'] == id:
+            pelicula = item
+            break
+
     if pelicula is None:
         raise Http404('La pelicula no existe.')
 
-    contenido = (
-        f'<h1>{pelicula["titulo"]}</h1>'
-        f'<p><strong>Genero:</strong> {pelicula["genero"]}</p>'
-        f'<p><strong>Duracion:</strong> {pelicula["duracion"]} minutos</p>'
-        f'<p>{pelicula["sinopsis"]}</p>'
-        '<p><a href="/peliculas/">Volver a la cartelera</a></p>'
-    )
-    return HttpResponse(contenido)
+    pelicula = pelicula.copy()
+    pelicula['precio_nocturno'] = round(pelicula['precio'] * 1.2)
+    if pelicula['apta_todo_publico'] and not pelicula['estreno']:
+        pelicula['etiqueta'] = 'Clasico familiar'
+    elif pelicula['estreno']:
+        pelicula['etiqueta'] = 'Estreno de la semana'
+    else:
+        pelicula['etiqueta'] = 'En cartelera'
+    return render(request, 'detalle.html', {'pelicula': pelicula})

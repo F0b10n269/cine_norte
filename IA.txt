@@ -1,0 +1,8 @@
+Apoyo de IA utilizado en el proyecto:
+
+- Se ultilizo para hacer la base.html
+- se ultilizo para hacer los estilos css
+- se ultilizo para haver el inicio.html
+- se ultilizo para hacer el detalle.html
+
+La logica principal del proyecto fue revisada y probada localmente con `python manage.py check` y el cliente de pruebas de Django.
